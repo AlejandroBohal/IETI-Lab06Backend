@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(name="users")
 
