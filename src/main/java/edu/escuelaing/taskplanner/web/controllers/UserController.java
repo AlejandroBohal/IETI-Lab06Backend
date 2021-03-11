@@ -3,6 +3,7 @@ package edu.escuelaing.taskplanner.web.controllers;
 import edu.escuelaing.taskplanner.business.Entities.User;
 import edu.escuelaing.taskplanner.business.Services.IUserService;
 import edu.escuelaing.taskplanner.exceptions.UserServiceException;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,12 +47,25 @@ public class UserController {
     }
     @PostMapping()
     public ResponseEntity<?> createUser(@RequestBody User user){
-        userService.create(user);
-        return new ResponseEntity<>(user,HttpStatus.CREATED);
+        try{
+            userService.create(user);
+            return new ResponseEntity<>(user,HttpStatus.CREATED);
+        }catch (Exception e){
+            Map<String,String> result = new HashMap<>();
+            result.put("error","Email already in use");
+            return new ResponseEntity<>(result,HttpStatus.CONFLICT);
+        }
+
     }
     @PutMapping()
-    public ResponseEntity<?> updateUser(@RequestBody User user){
-        userService.update(user);
-        return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
+    public ResponseEntity<?> updateUser(@RequestBody User user) throws UserServiceException {
+        try{
+            userService.update(user);
+            return new ResponseEntity<>(user,HttpStatus.OK);
+        }catch (UserServiceException e){
+            Map<String,String> result = new HashMap<>();
+            result.put("error",e.getMessage());
+            return new ResponseEntity<>(result,HttpStatus.NOT_FOUND);
+        }
     }
 }

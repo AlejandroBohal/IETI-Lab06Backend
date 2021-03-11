@@ -34,8 +34,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User update(User user) {
-        return userRepository.save(user);
+    public User update(User user) throws UserServiceException {
+        userRepository.findById(user.getUserId())
+                .orElseThrow(() -> new UserServiceException(UserServiceException.USER_NOT_FOUND_EXCEPTION));
+        userRepository.update(user);
+        return user;
     }
 
     @Override

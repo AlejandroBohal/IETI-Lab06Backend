@@ -13,7 +13,7 @@ public interface IUserService {
 
     User create(User user);
 
-    User update(User user);
+    User update(User user) throws UserServiceException;
 
     void remove(String userId) throws UserServiceException;
 }
