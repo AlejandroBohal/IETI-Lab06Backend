@@ -27,12 +27,12 @@ PUT https://ieticontainers.herokuapp.com/api/v1/users
 
 DELETE https://ieticontainers.herokuapp.com/api/v1/users/{userId}
 
-### Github Repo 
-[Backend](https://github.com/AlejandroBohal/IETI-Lab06Backend)
-
 
 ## FRONTEND
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://taskplannerieti2021.herokuapp.com/users)
+
+### Github Repo 
+[Frontend](https://github.com/AlejandroBohal/IETI-Lab06)
 
 
